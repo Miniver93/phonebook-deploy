@@ -1,5 +1,7 @@
 const express=require('express'); //Importamos el modulo express
 
+require('dotenv').config()
+
 
 const fs=require('fs');
 
@@ -30,7 +32,6 @@ app.use(morgan((tokens, request, response)=>{
         request.method==='POST' ? tokens.message(request,response) : '',
     ].join(' ')
 }))
-
 
 app.use(express.static('dist'))
 app.use(express.json()) //Le decimos que mi app use el middleware para parsear JSON
@@ -127,7 +128,7 @@ app.post('/api/persons', (request,response)=>{
 
 
 
-const PORT=3001
+const PORT = process.env.PORT ||3001
 app.listen(PORT,()=>{
-    console.log("Server running on port 3001");
+    console.log(`Server running on port ${PORT}`);
 })
