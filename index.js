@@ -59,21 +59,24 @@ app.get('/info', async (request,response)=>{
 })
 
 app.get('/api/persons/:id', (request, response)=>{
-    const {id}=request.params
+    
 
-    Phone.findById(id)
+    Phone.findById(request.params.id)
     .then(phone=>{
-        return phone ? response.json(phone).end() : response.status(404).end()
+        return phone ? response.json(phone) : response.status(404).end()
     })
-    .catch(err=>console.error(err))
+    .catch(err=>{
+        console.error(err);
+        response.status(500).end()
+    })
  
     
 })
 
 app.delete('/api/persons/:id', (request,response)=>{
-    const {id}=request.params
+    
 
-    Phone.findByIdAndDelete(id)
+    Phone.findByIdAndDelete(request.params.id)
     .then(result=>{
         response.status(200).send({ message: 'Phone has been deleted'}).end()
     })
