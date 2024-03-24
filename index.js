@@ -111,6 +111,17 @@ app.post('/api/persons', async (request,response)=>{
     
 })
 
+app.put('api/persons/:id', (request, response)=>{
+    const {id}=request.id
+    const person=request.body
+
+    Phone.findByIdAndUpdate(id, person, { new: true })
+        .then(result=>{
+            response.json(result)
+        })
+        .catch(err=>next(err))
+})
+
 app.use(require('./middleware/errorHandle'))
 
 const PORT = process.env.PORT
