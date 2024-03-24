@@ -58,29 +58,26 @@ app.get('/info', async (request,response)=>{
     response.send(`<p>Phonebook has info for ${entries} people</p><br>${date}`)
 })
 
-app.get('/api/persons/:id', (request, response)=>{
+app.get('/api/persons/:id', (request, response, next)=>{
     
 
     Phone.findById(request.params.id)
     .then(phone=>{
         return phone ? response.json(phone) : response.status(404).end()
     })
-    .catch(err=>{
-        console.error(err);
-        response.status(500).end()
-    })
+    .catch(err=>next(err))
  
     
 })
 
-app.delete('/api/persons/:id', (request,response)=>{
+app.delete('/api/persons/:id', (request,response, next)=>{
     
 
     Phone.findByIdAndDelete(request.params.id)
     .then(result=>{
         response.status(200).send({ message: 'Phone has been deleted'}).end()
     })
-    .catch(err=>console.error(err))
+    .catch(err=>next(err))
 })
 
 app.post('/api/persons', async (request,response)=>{
@@ -114,7 +111,7 @@ app.post('/api/persons', async (request,response)=>{
     
 })
 
-
+app.use(require('./middleware/errorHandle'))
 
 const PORT = process.env.PORT
 app.listen(PORT,()=>{
