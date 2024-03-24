@@ -1,6 +1,7 @@
 const express=require('express'); //Importamos el modulo express
 
 require('dotenv').config()
+require('./services/createNotes')
 
 
 const fs=require('fs');
