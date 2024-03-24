@@ -111,8 +111,8 @@ app.post('/api/persons', async (request,response)=>{
     
 })
 
-app.put('api/persons/:id', (request, response)=>{
-    const {id}=request.id
+app.put('/api/persons/:id', (request, response, next)=>{
+    const {id}=request.params
     const person=request.body
 
     Phone.findByIdAndUpdate(id, person, { new: true })
