@@ -92,6 +92,7 @@ app.post('/api/persons', async (request,response)=>{
         number: person.number
     })
 
+
     if (!person || !person.name || !person.number) {
         return response.status(400).json({
             error: "No name or phone"
@@ -108,7 +109,7 @@ app.post('/api/persons', async (request,response)=>{
         .then(savedNote=>{
             response.json(savedNote)
         })
-        .catch(err=>console.error(err))
+        .catch(err=>next(err))
     }
     
 })
