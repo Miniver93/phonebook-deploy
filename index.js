@@ -4,11 +4,12 @@ require('dotenv').config()
 require('./services/createPhones')
 const connectToDatabase = require('./mongo')
 connectToDatabase()
-app.use(cors())
+
 
 const fs = require('fs');
 const morgan = require('morgan')
 const app = express(); //Creamos el servidor
+app.use(cors())
 const Phone = require('./models/phonebook')
 
     //Creamos un token que luego le añadiremos a nuestro middleware, que contenga un mensaje personalizado según el código que nos de
