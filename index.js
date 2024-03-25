@@ -1,9 +1,10 @@
 const express=require('express'); //Importamos el modulo express
-
+const cors = require('cors')
 require('dotenv').config()
 require('./services/createPhones')
 const connectToDatabase = require('./mongo')
 connectToDatabase()
+app.use(cors())
 
 const fs = require('fs');
 const morgan = require('morgan')
