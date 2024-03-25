@@ -9,8 +9,16 @@ mongoose.set('strictQuery', false)
 
 //Creamos un schema
 const phoneBookSchema = new mongoose.Schema({
-    "name": String,
-    "number": String
+    "name": {
+        type: String,
+        minLength: 3,
+        required: true
+    },
+    "number": {
+        type: String,
+        minLength: 6,
+        required: true
+    }
 })
 
 //Cambiamos la configuración de lo que nos devuelve el JSON

@@ -113,9 +113,12 @@ app.post('/api/persons', async (request,response)=>{
 
 app.put('/api/persons/:id', (request, response, next)=>{
     const {id}=request.params
-    const person=request.body
 
-    Phone.findByIdAndUpdate(id, person, { new: true })
+    //Como las validaciones no funcionan al actualizar una nota, solo al postear una nueva nota, tenemos que pasar aquí directamente los parámetros que queremos que valide
+    const { name, number } = request.body
+
+    //'new true' nos devuelve el objeto actualizado, 'runValidators: true' Indica a mongoose que debe ejecutar las validaciones definidas al actualizar, 'context: query' me aseguro que la validación se adapte al contexto específico de la consulta de actualización
+    Phone.findByIdAndUpdate(id, { name, number }, { new: true, runValidators: true, context: 'query' })
         .then(result=>{
             response.json(result)
         })
